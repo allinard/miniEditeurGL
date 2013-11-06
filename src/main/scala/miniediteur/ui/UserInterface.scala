@@ -6,7 +6,7 @@ import scala.swing.{ SimpleSwingApplication, MainFrame, Button }
  * 
  * Class containing the User Interface
  * @author AdelineAlex
- * @todo une belle IHM dans une webapp peut être
+ * @todo une belle IHM dans une webapp peut ï¿½tre
  * 
  */
 object UserInterface extends SimpleSwingApplication {
@@ -22,7 +22,7 @@ object UserInterface extends SimpleSwingApplication {
     var fin: Int = 0
 
     /**
-     * 
+     *
      */
     def top = new MainFrame {
         title = "Hello, World!"
