@@ -1,6 +1,7 @@
 package miniediteur.ui
 
-import scala.swing.{ SimpleSwingApplication, MainFrame, Button }
+import swing._
+import event._
 
 /**
  *
@@ -11,6 +12,11 @@ import scala.swing.{ SimpleSwingApplication, MainFrame, Button }
  */
 object UserInterface extends SimpleSwingApplication {
 
+	/**
+	 * 
+	 */
+	var copiedValue: String = ""
+	
 	/**
 	 *
 	 */
@@ -25,10 +31,50 @@ object UserInterface extends SimpleSwingApplication {
 	 *
 	 */
 	def top = new MainFrame {
-		title = "Hello, World!"
-		contents = new Button {
-			text = "Click Me!"
+
+		title = "MiniEditeur GL"
+
+		object textarea extends TextArea { columns = 50; rows = 10 }
+
+		val buttonCopy = new Button {
+			text = "Copy"
 		}
+		val buttonPaste = new Button {
+			text = "Paste"
+		}
+
+		val buttonCut = new Button {
+			text = "Cut"
+		}
+
+		contents = new FlowPanel {
+			contents += new Label(" Editeur de texte ")
+			contents += buttonCopy
+			contents += buttonCut
+			contents += buttonPaste
+			contents += textarea
+			border = Swing.EmptyBorder(15, 10, 10, 10)
+		}
+		
+		listenTo(buttonCopy, buttonPaste, buttonCut)
+		
+		reactions += {
+			case ButtonClicked(`buttonCopy`) =>
+		      copiedValue = textarea.selected
+		      textarea.copy
+		      println("copying: "+copiedValue)
+		      
+			case ButtonClicked(`buttonPaste`) =>
+		      textarea.paste
+		      println("pasting: "+copiedValue)
+
+		    case ButtonClicked(`buttonCut`) =>
+			  copiedValue = textarea.selected
+			  textarea.cut
+		      println("cutting: "+copiedValue)
+
+		}
+		
 	}
 
 }
