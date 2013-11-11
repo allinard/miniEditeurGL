@@ -2,6 +2,7 @@ package miniediteur.ui
 
 import swing._
 import event._
+import javax.swing.plaf.basic.BasicArrowButton;
 
 /**
  *
@@ -52,14 +53,33 @@ object UserInterface extends SimpleSwingApplication {
 		val buttonCut = new Button {
 			text = "Cut"
 		}
+		
+		//Variable for the UNDO Button
+		val buttonUndo = new Button {
+			text = "<-"
+		}
+		
+		//Variable for the REDO Button
+		val buttonRedo = new Button {
+			text = "->"
+		}
+
+		//Not implemented yet !
+		buttonUndo.enabled_=(false)
+		buttonRedo.enabled_=(false)
 
 		//Components of the Frame
 		contents = new FlowPanel {
 			contents += new Label(" Editeur de texte ")
+
+			contents += new ScrollPane(textarea)
+			
 			contents += buttonCopy
 			contents += buttonCut
 			contents += buttonPaste
-			contents += textarea
+			contents += buttonUndo
+			contents += buttonRedo
+			
 			border = Swing.EmptyBorder(15, 10, 10, 10)
 		}
 		
@@ -81,6 +101,10 @@ object UserInterface extends SimpleSwingApplication {
 			  copiedValue = textarea.selected
 			  textarea.cut
 		      println("cutting: "+copiedValue)
+			  
+//		    case ButtonClicked(`buttonUndo`) =>
+//			  
+//			case ButtonClicked(`buttonRedo`) =>
 
 		}
 		
