@@ -191,14 +191,24 @@ Dans ce rapport c'est donc la première version que nous allons présenter avec 
 
 \subsection{Scala}
 
+Scala est un langage de programmation multi-paradigme pour exprimer les modèles de programmation courants dans une forme concise et élégante.
 
+Scala intègre les paradigmes de programmation orientée objet et de programmation fonctionnelle, avec un typage statique. Il concilie ainsi ces deux paradigmes habituellement opposés et offre au développeur la possibilité de choisir le paradigme le plus approprié à son problème. C'est pour cela qu'en tant que développeurs, nous avons l'impression de développer à la fois en Java, et en OCamL !
+
+Ce langage est prévu pour être compilé en bytecode Java (exécutable sur la JVM)
+
+	\begin{figure}[!ht]
+		\center
+		\includegraphics [width=70mm]{./images/scala.png}
+		\caption{Scala}
+	\end{figure}
 
 \subsection{Maven}
 Apache Maven est un outil logiciel libre pour la gestion et l'automatisation de production des projets logiciels Java et Java EE en particulier. L'objectif recherché est comparable au système Make sous Unix, que nous étudions dans le cadre du module \textit{Concepts et Outils de Développement} : produire un logiciel à partir de ses sources, en optimisant les tâches réalisées à cette fin et en garantissant le bon ordre de fabrication. Contrairement à Make et aux Autotools, Maven est plus adapté à Java, et surtout bien plus utilisé dans le monde du travail (Make est pour aisi dire déprécié).
 
 	\begin{figure}[!ht]
 		\center
-		\includegraphics [width=70mm]{logomaven.jpg}
+		\includegraphics [width=70mm]{./images/maven.png}
 		\caption{Apache Maven}
 	\end{figure}
 
@@ -206,11 +216,11 @@ Maven impose une arborescence et un nommage des fichiers du projet. En voici une
 	\begin{itemize}
 		\item \texttt{/src} : les sources du projet
 		\item \texttt{/src/main} : code source et fichiers source principaux
-		\item \texttt{/src/main/java} : code source
+		\item \texttt{/src/main/scala} : code source
 		\item \texttt{/src/main/resources} : fichiers de ressources (images, fichiers annexes etc.)
 		\item \texttt{/src/main/webapp} : webapp du projet (lorsque projet web - ce n'est pas notre cas)
 		\item \texttt{/src/test} : fichiers de test
-		\item \texttt{/src/test/java} : code source de test
+		\item \texttt{/src/test/scala} : code source de test
 		\item \texttt{/src/test/resources} : fichiers de ressources de test
 		\item \texttt{/target} : fichiers résultat, les binaires (du code et des tests), les packages générés et les résultats des tests
 	\end{itemize}
@@ -220,7 +230,7 @@ Maven utilise un paradigme connu sous le nom de Project Object Model (POM) afin 
 		\item \texttt{clean} : permet de supprimer le contenu du répertoire /target
 		\item \texttt{compile} : permet la compilation du code source
     	\item \texttt{test} : permet l'exécution des tests unitaires
-    	\item \texttt{package} : permet la génération d'une release (génération d'une archive JAR et de la javadoc)
+    	\item \texttt{package} : permet la génération d'une release (génération d'une archive JAR et de la scaladoc)
 	\end{itemize}
 
 De plus, l'idée est que, pour n'importe quel but, tous les buts en amont doivent être exécutés sauf s'ils ont déjà été exécutés avec succès et qu'aucun changement n'a été fait dans le projet depuis.
@@ -261,7 +271,7 @@ Dans le cadre du projet \textsc{MiniEditeur}, nous utilisons cet outil essentiel
 
 
 
-\subsubsection{Ajout et génération de scaladoc}
+\subsection{Ajout et génération de scaladoc}
 Scaladoc est un outil permettant de créer une documentation d'API en format HTML depuis les commentaires présents dans un code source en Scala. Scaladoc est le standard industriel pour la documentation des classes Scala. En outre, cela permet de commenter convenablement le code de notre mini éditeur. Les développeurs utilisent certains styles de commentaire et des tags Scaladoc\footnote{sur le modèle de la Javadoc, son homologue dans le cas de programmes codés en Java} quand ils documentent un code source. Un bloc de commentaire scala commençant par /** deviendra un bloc de commentaire Scaladoc qui sera inclus dans la documentation du code source. Les commentaires scaladoc précèdent généralement les déclarations de classes, d'attributs et de méthodes. Voici certains tags (liste non exhaustive), et un exemple mis en pratique dans le projet \textsc{MiniEditeur} :
 	\begin{itemize}
 		\item \texttt{@author} : Nom du développeur
@@ -319,27 +329,82 @@ object UserInterface extends SimpleSwingApplication {
 
 
 
-\subsubsection{Création d'un repository GitHub}
-Dans le but de permettre à la communauté l'amélioration du projet, nous avons crée un dépôt GitHub pour l'hébergement du projet. Il repose sur \textit{GIT}, qui est un logiciel de gestion de versions.
+\subsection{Création d'un repository GitHub et utilisation de GIT}
+Dans le but de permettre le développement collaboratif de notre application, nous avons crée un dépôt GitHub pour l'hébergement du projet. Il repose sur \textit{GIT}, qui est un logiciel de gestion de versions.
 
 Voici le lien pour le projet :
 \begin{center}
-\texttt{https://github.com/m1almatal/openDataWrapper}
+\texttt{https://github.com/m1almatal/allinard}
 \end{center}
 
+Les commandes que nous avons le plus utilisé pour le moment sont les suivantes :
+\begin{itemize}
+		\item \texttt{git init} crée un nouveau dépôt.
+		\item \texttt{git clone} clone un dépôt distant.
+		\item \texttt{git add} ajoute de nouveaux fichiers au repository.
+		\item \texttt{git commit} valider des changements dans un fichier. N'envoie pas sur le repository distant.
+		\item \texttt{git branch} crée une nouvelle branche de développement.
+		\item \texttt{git merge} fusionne plusieurs branches de développement.
+		\item \texttt{git pull} récupérer la version la plus à jour du projet depuis le repository distant.
+		\item \texttt{git push} envoyer ses changements sur le repository distant.
+\end{itemize}
 
 
 
 
 
-\section{Tests}
+\section{Tests Unitaires}
+
+Lors du développement d'un logiciel, on peut facilement faire des modifications sans se rendre compte qu'elles introduisent des bugs dans certains cas particuliers : les régressions. Une régression est l'introduction de nouveaux bugs à la suite d'une évolution fonctionnelle. Hors, il n'est pas humainement possible de tester systématiquement tous les cas d'utilisation possible, ces bugs peuvent se retrouver déployés en production, avec tous les problèmes que cela comporte.
+
+Les tests unitaires servent également à cadrer le développement, puisque dans la mesure du possible ils doivent être écrits avant de coder : il s'agit du TDD\footnote{Technique de développement de logiciel qui préconise d'écrire les tests unitaires avant d'écrire le code source d'un logiciel. Ces tests permettent aussi de préciser les spécifications du code et donc son comportement ultérieur en fonction des situations auxquelles il sera exposé. Ce qui facilite la production d'un code valide en toutes circonstances. On obtient donc un code plus juste et plus fiable.}.
+
+Concrètement, les tests unitaires consistent en un ensemble de scripts, qui ont chacun en charge la validation d'un morceau de code (ou d'une classe dans le cadre de la programmation orientée objet). Il existe de très nombreux frameworks : JUnit (Java), SimpleTest (PHP), CppUnit (C++), JSUnit (Javascript), unittest (Python), NUnit (.NET), etc.
+
+Nous avons réalisé nos tests unitaires avec \textsc{JUnit}, qui est décrit ci-dessous. Cependant, nous connaissons également \textsc{ScalaTest}, que nous n'avons pas encore mis en place, ce que nous ferons peut être dans les prochaines versions du mini éditeur...
 
 \subsection{JUnit}
+
+JUnit est un framework de test unitaire initialement développé pour le langage de programmation Java, et qui possède des extensions pour le langage Scala.
+
+JUnit définit deux types de fichiers de tests. Les TestCase sont des classes contenant un certain nombre de méthodes de tests. Un TestCase sert généralement à tester le bon fonctionnement d'une classe. Une TestSuite permet d'exécuter un certain nombre de TestCase déjà définis.
+
+Enfin, JUnit est intégré par défaut dans les environnements de développement intégré Java tels que BlueJ, Eclipse et NetBeans. C'est donc une constante dans le monde de l'entreprise et du développement logiciel !
 
 
 \subsection{La réalisation concrète de tests unitaires avec Scala}
 
+Voici un exemple simple de test unitaire en Scala :
 
+\newpage
+\begin{lstlisting}[caption=Exemple de TU Scala, label=java]
+import junit.framework._
+import org.junit.Assert._
+
+/**
+ * @author AdelineAlexis
+ */
+class SampleScalaUnitTest extends TestCase {
+
+	/**
+	 * Test de la méthode testOne()
+	 * @return OK
+	 */
+	def testOne() = {
+		assertEquals(1, 1)
+	}
+
+	/**
+	 * Test de la méthode testTwo()
+	 * @return FAIL
+	 */
+	def testTwo() = {
+		assertEquals(2, 3)
+	}
+
+}
+
+\end{lstlisting}	
 
 
 
