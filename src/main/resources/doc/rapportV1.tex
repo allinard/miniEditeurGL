@@ -178,11 +178,44 @@ Dans ce rapport c'est donc la première version que nous allons présenter avec 
 \section{Implémentation de la version 1}
 
 
+\subsection{Patron de conception}
+
+\paragraph{Commande} Ce patron de conception est de type comportemental. Ce patron va permettre d'encapsuler une action réalisée par l'utilisateur (autrement appellé une requête)  dans un objet pour permettre diverses opérations sur la requête. Cela va permettre de dissocier l'objet qui invoque une opération de l'objet qui possède les connaissances nécessaires pour réaliser l'opération demandée. On peut voir l'invocateur comme l'instrument qui appelle la méthode à exécuter. Il est particulièrement recommander en présence d'une IHM car il permet une certaine flexibilité au niveau du design comme le partage de fonctionnalités et le remplacement dynamique des commandes.
+\paragraph{}
+Concrètement, nous avons appliqué le patron sur notre projet comme suit : \\
+
+\begin{table}[H]
+\caption{Distribution des rôles}
+\center
+\begin{tabular}{||l|c||}
+\hline
+\textbf{Rôle} & \textbf{Objet}\\
+\hline\hline
+Client & IHM \\
+\hline
+Invocateur & IHM \\
+\hline
+Commande & Command \\
+\hline
+CommandeConcrète & Cut, Paste, Copy, Move,  Select \\
+\hline
+Receveur & Buffer \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{}
+Maintenant que nous avons explicité le rôle de chacun ainsi que les interactions qu'il existe entre eux. Nous vous présentons en figure \ref{command} le diagramme de classe correspondant à notre projet et mettant en œuvre le patron Commande.
+
 \begin{figure}[!ht]
 		\center
 		\includegraphics [width=15cm]{Command.png}
 		\caption{Mise en oeuvre du patron Commande}
+		\label{command}
 \end{figure}
+
+\paragraph{}
+Afin d'expliciter un peu plus encore le fonctionnement, nous présentons en figure \ref{seq1} et \ref{seq2} des exemples de diagramme de séquence où l'on peut voir les interactions entre chaque classe.
 
 
 
@@ -344,7 +377,19 @@ Voici le lien pour le projet :
 
 
 
+\newpage
 \section{Conclusion}
+Cette première modélisation que nous avons réalisé pour l'éditeur de texte est une réponse au cahier des charges qui nous a été fourni. Grâce à cela, nous avons pu définir et mettre en place les principales fonctionnalités que l'éditeur doit posséder. 
+
+\paragraph{}
+La réalisation du diagramme de classe, nous a permis de manipuler le patron de conception que l'on a abordé en cours et de le mettre en œuvre. Les diagrammes de séquences nous ont permit de mieux comprendre et analyser comment les différents objets de l'éditeur pouvaient interagir entre eux lors d'une action. 
+
+\paragraph{}
+Nous avons également pu réfléchir sur l'agencement de l'interface utilisateur pour qu'elle reste le plus simple possible pour ce dernier tout en restant le plus fonctionnel possible. Tout en sachant que nous devrons l'adapter à chaque version du projet. 
+
+\paragraph{}
+La prochaine version devra permettre d'enregistrer les actions de l'utilisateur et de les rejouer. 
+
 
 
 \newpage
