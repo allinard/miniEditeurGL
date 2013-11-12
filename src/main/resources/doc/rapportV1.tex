@@ -184,6 +184,166 @@ Dans ce rapport c'est donc la première version que nous allons présenter avec 
 		\caption{Mise en oeuvre du patron Commande}
 \end{figure}
 
+
+
+
+\section{Conception Détaillé}
+
+\subsection{Scala}
+
+
+
+\subsection{Maven}
+Apache Maven est un outil logiciel libre pour la gestion et l'automatisation de production des projets logiciels Java et Java EE en particulier. L'objectif recherché est comparable au système Make sous Unix, que nous étudions dans le cadre du module \textit{Concepts et Outils de Développement} : produire un logiciel à partir de ses sources, en optimisant les tâches réalisées à cette fin et en garantissant le bon ordre de fabrication. Contrairement à Make et aux Autotools, Maven est plus adapté à Java, et surtout bien plus utilisé dans le monde du travail (Make est pour aisi dire déprécié).
+
+	\begin{figure}[!ht]
+		\center
+		\includegraphics [width=70mm]{logomaven.jpg}
+		\caption{Apache Maven}
+	\end{figure}
+
+Maven impose une arborescence et un nommage des fichiers du projet. En voici une liste non exhaustive :
+	\begin{itemize}
+		\item \texttt{/src} : les sources du projet
+		\item \texttt{/src/main} : code source et fichiers source principaux
+		\item \texttt{/src/main/java} : code source
+		\item \texttt{/src/main/resources} : fichiers de ressources (images, fichiers annexes etc.)
+		\item \texttt{/src/main/webapp} : webapp du projet (lorsque projet web - ce n'est pas notre cas)
+		\item \texttt{/src/test} : fichiers de test
+		\item \texttt{/src/test/java} : code source de test
+		\item \texttt{/src/test/resources} : fichiers de ressources de test
+		\item \texttt{/target} : fichiers résultat, les binaires (du code et des tests), les packages générés et les résultats des tests
+	\end{itemize}
+	
+Maven utilise un paradigme connu sous le nom de Project Object Model (POM) afin de décrire un projet logiciel, ses dépendances avec des modules externes et l'ordre à suivre pour sa production. Il est livré avec un grand nombre de tâches pré-définies, comme :
+	\begin{itemize}
+		\item \texttt{clean} : permet de supprimer le contenu du répertoire /target
+		\item \texttt{compile} : permet la compilation du code source
+    	\item \texttt{test} : permet l'exécution des tests unitaires
+    	\item \texttt{package} : permet la génération d'une release (génération d'une archive JAR et de la javadoc)
+	\end{itemize}
+
+De plus, l'idée est que, pour n'importe quel but, tous les buts en amont doivent être exécutés sauf s'ils ont déjà été exécutés avec succès et qu'aucun changement n'a été fait dans le projet depuis.
+
+
+Dans le cadre du projet \textsc{MiniEditeur}, nous utilisons cet outil essentiellement pour la gestion des dépendances, afin d'éviter d'importer les archives .jar dans le classpath "à la main". Voici un extrait du \texttt{pom.xml} pour le projet :
+\begin{lstlisting}[caption=Exemple de fichier pom.xml, label=ruleml]
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>MiniEditeur</groupId>
+	<packaging>jar</packaging>
+	<artifactId>MiniEditeur</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>MiniEditeur</name>
+	<description>MiniEditeur projet Genie Logiciel - Adeline Granet and Alexis Linard</description>
+	
+		...
+	
+	<dependencies>
+	
+		...
+	
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-swing</artifactId>
+			<version>2.11.0-M5</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+	</dependencies>
+		...
+</project>
+\end{lstlisting}
+
+
+
+\subsubsection{Ajout et génération de scaladoc}
+Scaladoc est un outil permettant de créer une documentation d'API en format HTML depuis les commentaires présents dans un code source en Scala. Scaladoc est le standard industriel pour la documentation des classes Scala. En outre, cela permet de commenter convenablement le code de notre mini éditeur. Les développeurs utilisent certains styles de commentaire et des tags Scaladoc\footnote{sur le modèle de la Javadoc, son homologue dans le cas de programmes codés en Java} quand ils documentent un code source. Un bloc de commentaire scala commençant par /** deviendra un bloc de commentaire Scaladoc qui sera inclus dans la documentation du code source. Les commentaires scaladoc précèdent généralement les déclarations de classes, d'attributs et de méthodes. Voici certains tags (liste non exhaustive), et un exemple mis en pratique dans le projet \textsc{MiniEditeur} :
+	\begin{itemize}
+		\item \texttt{@author} : Nom du développeur
+		\item \texttt{@deprecated} : Marque la méthode comme dépréciée. Certains IDEs créent un avertissement à la compilation si la méthode est appelée.
+		\item \texttt{@exception} : Documente une exception lancée par une méthode — voir aussi \texttt{@throws}
+		\item \texttt{@param} : Définit un paramètre de méthode. Requis pour chaque paramètre.
+		\item \texttt{@return} : Documente la valeur de retour. Ce tag ne devrait pas être employé pour des constructeurs ou des méthodes définis avec un type de retour void.
+		\item \texttt{@see} : Documente une association à une autre méthode ou classe.
+		\item \texttt{@since} : Précise à quelle version de la SDK/JDK une méthode a été ajoutée à la classe.
+		\item \texttt{@throws} : Documente une exception lancée par une méthode.
+		\item \texttt{@version : Donne la version d'une classe ou d'une méthode.
+	\end{itemize}
+
+	
+\newpage
+\begin{lstlisting}[caption=Exemple de scaladoc, label=java]
+/**
+ *
+ * Class containing the User Interface
+ * @author AdelineAlex
+ * @todo une belle IHM dans une webapp peut être
+ *
+ */
+object UserInterface extends SimpleSwingApplication {
+
+	/**
+	 * Variable containing the copied value in the text editor
+	 */
+	var copiedValue: String = ""
+	
+	/**
+	 * @TODO For Saved Actions
+	 */
+	var debut: Int = 0
+
+	/**
+	 * @TODO For Saved Actions
+	 */
+	var fin: Int = 0
+
+	/**
+	 * The UI
+	 */
+	def top = new MainFrame {
+
+		//Title of the frame
+		title = "MiniEditeur GL"
+			...
+	}
+}
+
+\end{lstlisting}	
+
+
+
+
+
+\subsubsection{Création d'un repository GitHub}
+Dans le but de permettre à la communauté l'amélioration du projet, nous avons crée un dépôt GitHub pour l'hébergement du projet. Il repose sur \textit{GIT}, qui est un logiciel de gestion de versions.
+
+Voici le lien pour le projet :
+\begin{center}
+\texttt{https://github.com/m1almatal/openDataWrapper}
+\end{center}
+
+
+
+
+
+
+\section{Tests}
+
+\subsection{JUnit}
+
+
+\subsection{La réalisation concrète de tests unitaires avec Scala}
+
+
+
+
+
+
 \section{Conclusion}
 
 
