@@ -11,7 +11,7 @@ import miniediteur.ui.UserInterface
 class Paste(var ui: UserInterface) extends Command {
 
 	def execute() = {
-		buffer.paste()
+		val pastedText = buffer.paste()
 	}
 
 }

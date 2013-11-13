@@ -12,7 +12,7 @@ trait Command {
 
 	var ui : UserInterface
 	
-	var buffer = new Buffer
+	var buffer = Buffer.getInstance
 
 	def execute(): Unit
 	

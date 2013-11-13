@@ -106,16 +106,15 @@ class UserInterface extends SimpleSwingApplication {
 				copiedValue = textarea.selected
 				textarea.copy
 				commandCopy.execute
-			//println("copying: "+copiedValue)
 
 			case ButtonClicked(`buttonPaste`) =>
 				textarea.paste
-				println("pasting: " + copiedValue)
+				commandPaste.execute
 
 			case ButtonClicked(`buttonCut`) =>
 				copiedValue = textarea.selected
 				textarea.cut
-				println("cutting: " + copiedValue)
+				commandCut.execute
 
 			//		    case ButtonClicked(`buttonUndo`) =>
 			//			  

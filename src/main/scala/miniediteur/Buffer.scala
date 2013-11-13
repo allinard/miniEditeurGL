@@ -20,6 +20,7 @@ class Buffer {
 	 */
 	def copy(t: String): Unit = {
 		clipBoard.setText(t)
+		println(t+" copied into clipboard")
 	}
 
 	/**
@@ -27,6 +28,7 @@ class Buffer {
 	 */
 	def cut(t: String): Unit = {
 		clipBoard.setText(t)
+		println(t+" cut into clipboard")
 	}
 
 	/**
@@ -40,6 +42,7 @@ class Buffer {
 	 * Method to paste a text
 	 */
 	def paste(): String = {
+		println(clipBoard.getText+" read and pasted from clipboard")
 		return clipBoard.getText
 	}
 
@@ -54,7 +57,7 @@ class Buffer {
 	 * Method to select a text
 	 */
 	def select(): Unit = {
-
+		//TODO
 	}
 
 	/**
@@ -63,5 +66,19 @@ class Buffer {
 	def write(lastChar: String): Unit = {
 		texte.append(lastChar)
 	}
+
+}
+
+
+/**
+ * Singleton Container
+ */
+object Buffer {
+
+   val singleton = new Buffer
+
+   def getInstance: Buffer = {
+      return singleton;
+   }
 
 }

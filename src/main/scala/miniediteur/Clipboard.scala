@@ -20,7 +20,6 @@ class Clipboard {
 	 */
 	def setText(t: String): Unit = {
 		text = t
-		println(text+" copied into clipboard")
 	}
 
 	/**

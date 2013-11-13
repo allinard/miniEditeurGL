@@ -12,11 +12,9 @@ import miniediteur.ui.UserInterface
 class Cut(var ui: UserInterface) extends Command {
 
 	def execute() = {
-		//TODO replace by text from UI
-		val t = ""
+		val t = ui.copiedValue
 
 		buffer.cut(t)
-
 	}
 
 }
