@@ -32,19 +32,8 @@ class UserInterface extends SimpleSwingApplication {
 	var copiedValue: String = ""
 
 	/**
-	 * @TODO For Saved Actions
-	 */
-	var debut: Int = 0
-
-	/**
-	 * @TODO For Saved Actions
-	 */
-	var fin: Int = 0
-
-	/**
 	 * The UI
 	 */
-
 	def top = new MainFrame {
 
 		//Title of the frame
