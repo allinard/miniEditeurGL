@@ -15,7 +15,7 @@ class SampleScalaUnitTest extends TestCase {
 	}
 
 	def testTwo() = {
-		assertEquals(2, 3)
+		assertFalse(2.equals(3))
 	}
 
 }

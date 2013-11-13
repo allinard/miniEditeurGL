@@ -27,9 +27,14 @@ class UserInterface extends SimpleSwingApplication {
 
 
 	/**
-	 * Variable containing the copied value in the text editor
+	 * Variable containing the copied value (or pasted) in the text editor
 	 */
 	var copiedValue: String = ""
+		
+	/**
+	 * Variable containing the value to paste the text editor
+	 */
+	var pasteValue: String = ""
 
 	/**
 	 * The UI
