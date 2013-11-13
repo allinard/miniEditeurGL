@@ -1,14 +1,14 @@
 package miniediteur.command
 
 import miniediteur.Command
-
+import miniediteur.ui.UserInterface
 /**
  *
  * Class containing Write Command
  * @author AdelineAlex
  *
  */
-class Write extends Command {
+class Write(var ui: UserInterface) extends Command {
 
 	def execute() = {
 		//TODO replace by text from UI

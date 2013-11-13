@@ -1,6 +1,7 @@
 package miniediteur.command
 
 import miniediteur.Command
+import miniediteur.ui.UserInterface
 
 /**
  *
@@ -8,7 +9,7 @@ import miniediteur.Command
  * @author AdelineAlex
  *
  */
-class Cut extends Command {
+class Cut(var ui: UserInterface) extends Command {
 
 	def execute() = {
 		//TODO replace by text from UI

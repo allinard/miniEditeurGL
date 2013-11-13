@@ -1,6 +1,7 @@
 package miniediteur.command
 
 import miniediteur.Command
+import miniediteur.ui.UserInterface
 
 /**
  *
@@ -8,11 +9,10 @@ import miniediteur.Command
  * @author AdelineAlex
  *
  */
-class Copy extends Command {
+class Copy(var ui: UserInterface) extends Command {
 
 	def execute() = {
-		//TODO replace by text from UI
-		val t = ""
+		val t = ui.copiedValue
 
 		buffer.copy(t)
 	}

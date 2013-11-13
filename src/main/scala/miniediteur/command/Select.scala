@@ -1,6 +1,7 @@
 package miniediteur.command
 
 import miniediteur.Command
+import miniediteur.ui.UserInterface
 
 /**
  *
@@ -8,7 +9,7 @@ import miniediteur.Command
  * @author AdelineAlex
  *
  */
-class Select extends Command {
+class Select(var ui: UserInterface) extends Command {
 
 	def execute() = {
 		buffer.select()

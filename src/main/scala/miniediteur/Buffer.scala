@@ -1,5 +1,7 @@
 package miniediteur
 
+import miniediteur.ui.UserInterface
+
 /**
  *
  * Class containing the Buffer
@@ -11,6 +13,7 @@ class Buffer {
 	val clipBoard = new Clipboard
 
 	val texte = new StringBuffer
+	
 
 	/**
 	 * Method to copy a text

@@ -3,21 +3,34 @@ package miniediteur.ui
 import swing._
 import event._
 import javax.swing.plaf.basic.BasicArrowButton;
+import miniediteur.command._
 
 /**
  *
  * Class containing the User Interface
  * @author AdelineAlex
- * @todo une belle IHM dans une webapp peut �tre
+ * @todo une belle IHM dans une webapp peut etre
  *
  */
-object UserInterface extends SimpleSwingApplication {
+class UserInterface extends SimpleSwingApplication {
+
+	/**
+	 * All concrete commands
+	 */
+	val commandCopy = new Copy(this)
+	val commandCut = new Cut(this)
+	val commandMove = new Move(this)
+	val commandPaste = new Paste(this)
+	val commandRemove = new Remove(this)
+	val commandSelect = new Select(this)
+	val commandWrite = new Write(this)
+
 
 	/**
 	 * Variable containing the copied value in the text editor
 	 */
 	var copiedValue: String = ""
-	
+
 	/**
 	 * @TODO For Saved Actions
 	 */
@@ -31,6 +44,7 @@ object UserInterface extends SimpleSwingApplication {
 	/**
 	 * The UI
 	 */
+
 	def top = new MainFrame {
 
 		//Title of the frame
@@ -43,22 +57,22 @@ object UserInterface extends SimpleSwingApplication {
 		val buttonCopy = new Button {
 			text = "Copy"
 		}
-		
+
 		//Variable for the Paste Button
 		val buttonPaste = new Button {
 			text = "Paste"
 		}
-		
+
 		//Variable for the Cut Button
 		val buttonCut = new Button {
 			text = "Cut"
 		}
-		
+
 		//Variable for the UNDO Button
 		val buttonUndo = new Button {
 			text = "<-"
 		}
-		
+
 		//Variable for the REDO Button
 		val buttonRedo = new Button {
 			text = "->"
@@ -73,41 +87,42 @@ object UserInterface extends SimpleSwingApplication {
 			contents += new Label(" Editeur de texte ")
 
 			contents += new ScrollPane(textarea)
-			
+
 			contents += buttonCopy
 			contents += buttonCut
 			contents += buttonPaste
 			contents += buttonUndo
 			contents += buttonRedo
-			
+
 			border = Swing.EmptyBorder(15, 10, 10, 10)
 		}
-		
+
 		//Adding listeners on buttons
 		listenTo(buttonCopy, buttonPaste, buttonCut)
-		
+
 		//Implementing actions
 		reactions += {
 			case ButtonClicked(`buttonCopy`) =>
-		      copiedValue = textarea.selected
-		      textarea.copy
-		      println("copying: "+copiedValue)
-		      
-			case ButtonClicked(`buttonPaste`) =>
-		      textarea.paste
-		      println("pasting: "+copiedValue)
+				copiedValue = textarea.selected
+				textarea.copy
+				commandCopy.execute
+			//println("copying: "+copiedValue)
 
-		    case ButtonClicked(`buttonCut`) =>
-			  copiedValue = textarea.selected
-			  textarea.cut
-		      println("cutting: "+copiedValue)
-			  
-//		    case ButtonClicked(`buttonUndo`) =>
-//			  
-//			case ButtonClicked(`buttonRedo`) =>
+			case ButtonClicked(`buttonPaste`) =>
+				textarea.paste
+				println("pasting: " + copiedValue)
+
+			case ButtonClicked(`buttonCut`) =>
+				copiedValue = textarea.selected
+				textarea.cut
+				println("cutting: " + copiedValue)
+
+			//		    case ButtonClicked(`buttonUndo`) =>
+			//			  
+			//			case ButtonClicked(`buttonRedo`) =>
 
 		}
-		
 	}
+
 
 }
