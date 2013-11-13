@@ -253,6 +253,7 @@ Ce langage est prévu pour être compilé en bytecode Java (exécutable sur la J
 		\includegraphics [width=70mm]{./images/scala.png}
 		\caption{Scala}
 	\end{figure}
+	
 
 \subsection{Maven}
 Apache Maven est un outil logiciel libre pour la gestion et l'automatisation de production des projets logiciels Java et Java EE en particulier. L'objectif recherché est comparable au système Make sous Unix, que nous étudions dans le cadre du module \textit{Concepts et Outils de Développement} : produire un logiciel à partir de ses sources, en optimisant les tâches réalisées à cette fin et en garantissant le bon ordre de fabrication. Contrairement à Make et aux Autotools, Maven est plus adapté à Java, et surtout bien plus utilisé dans le monde du travail (Make est pour aisi dire déprécié).
@@ -385,7 +386,7 @@ Dans le but de permettre le développement collaboratif de notre application, no
 
 Voici le lien pour le projet :
 \begin{center}
-\texttt{https://github.com/m1almatal/allinard}
+\texttt{https://github.com/allinard/miniEditeurGL}
 \end{center}
 
 Les commandes que nous avons le plus utilisé pour le moment sont les suivantes :
@@ -400,6 +401,24 @@ Les commandes que nous avons le plus utilisé pour le moment sont les suivantes 
 		\item \texttt{git push} envoyer ses changements sur le repository distant.
 \end{itemize}
 
+
+
+\subsubsection{Virtualisation du projet}
+
+Dans un souci d'efficience maximum, nous avons décidé de travailler sur des machines virtuelles\footnote{En informatique, une machine virtuelle (anglais virtual machine, abr. VM) est une illusion d'un appareil informatique créée par un logiciel d'émulation. Le logiciel d'émulation simule la présence de ressources matérielles et logicielles telles que la mémoire, le processeur, le disque dur, voire le système d'exploitation et les pilotes, permettant d'exécuter des programmes dans les mêmes conditions que celles de la machine simulée}. L'avantage de cette pratique est la portabilité de la VM d'un hôte à l'autre. Ainsi, une fois le projet correctement configuré (avec un bon IDE Eclipse bien configuré, et les bons plug-in par exemple), il suffit de la copier d'un collaborateur au projet à un autre. C'est ainsi un bon moyen de ne pas perdre de temps, et de configurer le projet une seule fois.
+
+\begin{figure}[!ht]
+		\center
+		\includegraphics [width=120mm]{vm1.png}
+		\caption{Exécution de la VM de développement \textsc{OpenDataWrapper}}
+\end{figure}
+
+Cependant, un des inconvénients de l'utilisation des machines virtuelles est le besoin de ressources convenables venant de l'hôte. Dans le cas de notre VM :
+\begin{itemize}
+\item 3Go RAM (at least)
+\item 2 cores
+\item + or - 10Go Hard Drive
+\end{itemize} 
 
 
 
