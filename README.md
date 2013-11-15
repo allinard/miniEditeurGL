@@ -15,4 +15,4 @@ Quick Start
 2) Start
 
 	Run command mvn compile to compile the project. If you are using Eclipse, run mvn eclipse:eclipse to make eclipse maven-friendly, then run mvn compile
-	Run Launcher.scala as a scala application
+	Run Launcher.scala (src/main/scala/miniediteur/ui) as a scala application
