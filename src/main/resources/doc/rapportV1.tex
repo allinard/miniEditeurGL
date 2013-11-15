@@ -105,12 +105,8 @@ Mini-éditeur de texte}
 
 \blurb{%
 Université de Nantes\\
-Master 1 ATAL\\[1em]
-  
-}%
-
-
- 
+Master 1 ATAL \\[1em]
+} 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}          
@@ -178,7 +174,22 @@ Dans ce rapport c'est donc la première version que nous allons présenter avec 
 
 
 \section{Implémentation de la version 1}
-\subsection{Patron de conception}
+\subsection{Patrons de conceptions}
+
+\paragraph{Singleton}
+Le but de ce patron de conception est de limiter une classe à une seule et unique instance. 
+Pour notre projet, nous avons choisit de mettre la classe \textit{Buffer} en singleton car plusieurs interfaces hommmes-machines peuvent être relié à un même Buffer mais l'inverse n'est pas possible.
+
+\pargraph{}
+Nous avons donc mis le constructeur de la classe en privé aisni que l'instance de la classe, et une méthode publique qui permet de récupérer cette même instance. Sur la figure \ref{Singleton}, on peut voir au bas de la classe, les deux méthodes sités.
+
+
+\begin{figure}[!ht]
+		\center
+		\includegraphics [width=3cm]{singleton.png}
+		\caption{Mise en oeuvre du patron Singleton}
+		\label{singleton}
+\end{figure}
 
 \paragraph{Commande} Ce patron de conception est de type comportemental. Ce patron va permettre d'encapsuler une action réalisée par l'utilisateur (autrement appellé une requête)  dans un objet pour permettre diverses opérations sur la requête. Cela va permettre de dissocier l'objet qui invoque une opération de l'objet qui possède les connaissances nécessaires pour réaliser l'opération demandée. On peut voir l'invocateur comme l'instrument qui appelle la méthode à exécuter. Il est particulièrement recommander en présence d'une IHM car il permet une certaine flexibilité au niveau du design comme le partage de fonctionnalités et le remplacement dynamique des commandes.
 \paragraph{}
@@ -209,7 +220,7 @@ Maintenant que nous avons explicité le rôle de chacun ainsi que les interactio
 
 \begin{figure}[!ht]
 		\center
-		\includegraphics [width=15cm]{./images/Command.png}
+		\includegraphics [width=15cm]{Command.png}
 		\caption{Mise en oeuvre du patron Commande}
 		\label{command}
 \end{figure}
@@ -219,25 +230,38 @@ Afin d'expliciter un peu plus encore le fonctionnement, nous présentons en figu
 
 \begin{figure}[!ht]
 		\center
-		\includegraphics [width=15cm]{./images/seq1.png}
+		\includegraphics [width=15cm]{seq1.png}
 		\caption{Diagramme de séquence pour couper}
 		\label{seq1}
 \end{figure}
 
 \begin{figure}[!ht]
 		\center
-		\includegraphics [width=15cm]{./images/seq2.png}
+		\includegraphics [width=15cm]{seq2.png}
 		\caption{Diagramme de séquence pour coller}
 		\label{seq2}
 \end{figure}
 
 \begin{figure}[!ht]
 		\center
-		\includegraphics [width=15cm]{./images/seq3.png}
+		\includegraphics [width=15cm]{seq3.png}
 		\caption{Diagramme de séquence pour écrire}
 		\label{seq3}
 \end{figure}
 
+\subsection{Interface graphique}
+Nous présentons en figure \ref{ui}, l'interface que nous avons réalisé pour l'utilisateur. 
+D'un point d evue générale, nous avons deux parties distinctes dans cette interface : la partie éditeur avec l'espace pour écrire du texte et la partie interaction avec les boutons. On y retrouve les différentes fonctions qui nous ont été demandé : copier, coller, couper. 
+Il y a également deux autres boutons qui sont désactivé pour l'instant car ils sont en préparation pour la prochaine version avec le concept \textit{undo redo}. Grâce à Scala, nous n'avons pas eu besoin de créer un bouton \textit{select} car ce dernier est automatiquement gérer.
+\begin{figure}[!ht]
+		\center
+		\includegraphics [width=10cm]{ui.png}
+		\caption{L'interface graphique réalisée}
+		\label{ui}
+\end{figure}
+
+
+\newpage
 \section{Conception Détaillé}
 
 \subsection{Scala}
@@ -250,7 +274,7 @@ Ce langage est prévu pour être compilé en bytecode Java (exécutable sur la J
 
 	\begin{figure}[!ht]
 		\center
-		\includegraphics [width=50mm]{./images/scala.png}
+		\includegraphics [width=50mm]{scala.png}
 		\caption{Scala}
 	\end{figure}
 	
@@ -260,7 +284,7 @@ Apache Maven est un outil logiciel libre pour la gestion et l'automatisation de 
 
 	\begin{figure}[!ht]
 		\center
-		\includegraphics [width=50mm]{./images/maven.png}
+		\includegraphics [width=50mm]{maven.png}
 		\caption{Apache Maven}
 	\end{figure}
 
@@ -334,7 +358,7 @@ Scaladoc est un outil permettant de créer une documentation d'API en format HTM
 		\item \texttt{@see} : Documente une association à une autre méthode ou classe.
 		\item \texttt{@since} : Précise à quelle version de la SDK/JDK une méthode a été ajoutée à la classe.
 		\item \texttt{@throws} : Documente une exception lancée par une méthode.
-		\item \texttt{@version : Donne la version d'une classe ou d'une méthode.
+		\item \texttt{@version} : Donne la version d'une classe ou d'une méthode.
 	\end{itemize}
 
 	
@@ -490,6 +514,8 @@ Nous avons également pu réfléchir sur l'agencement de l'interface utilisateur
 
 \paragraph{}
 La prochaine version devra permettre d'enregistrer les actions de l'utilisateur et de les rejouer. 
+
+
 
 
 \newpage
