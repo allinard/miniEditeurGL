@@ -132,7 +132,7 @@ Master 1 ATAL \\[1em]
 
 \section{Introduction}
 \paragraph{}
-Le projet \textit{Mini Editeur} a pour but la réalisation d'un outil d'éditeur de texte. Il s'inscrit dans le module de Génie Loiciel. A travers lui, nous apprenons à utiliser différents outils tel que le langage Scala avec sa bibliothèque graphique Swing dans le logiciel Éclipse ce qui nous permet de compiler, déboguer et utiliser githup pour la gestion de version. 
+Le projet \textit{Mini Editeur} a pour but la réalisation d'un outil d'éditeur de texte. Il s'inscrit dans le module de Génie Loiciel. A travers lui, nous apprenons à utiliser différents outils tel que le langage Scala avec sa bibliothèque graphique Swing dans l'IDE\footnote{Integrated Development Environment : ensemble d'outils pour augmenter la productivité des programmeurs qui développent des logiciels} Éclipse ce qui nous permet de compiler, déboguer et utiliser githup pour la gestion de version. 
 \paragraph{}
 L’objectif de ce rapport est de présenter la modélisation de notre mini-éditeur de texte tel que nous l'avons conçu tout en intégrant les principaux diagrammes d’UML,  certains patrons de conception et ainsi que les techniques liés à l'environnement de travail.
 Dans une première partie, nous présenterons le projet. L'éditeur sera présenté de manière approfondi avec ses fonctionnalités.
@@ -178,10 +178,10 @@ Dans ce rapport c'est donc la première version que nous allons présenter avec 
 
 \paragraph{Singleton}
 Le but de ce patron de conception est de limiter une classe à une seule et unique instance. 
-Pour notre projet, nous avons choisit de mettre la classe \textit{Buffer} en singleton car plusieurs interfaces hommmes-machines peuvent être relié à un même Buffer mais l'inverse n'est pas possible.
+Pour notre projet, nous avons choisi de mettre la classe \textit{Buffer} en singleton car plusieurs interfaces hommmes-machines peuvent être reliés à un même Buffer mais l'inverse n'est pas possible.
 
 \pargraph{}
-Nous avons donc mis le constructeur de la classe en privé aisni que l'instance de la classe, et une méthode publique qui permet de récupérer cette même instance. Sur la figure \ref{Singleton}, on peut voir au bas de la classe, les deux méthodes sités.
+Nous avons donc mis le constructeur de la classe en privé aisni que l'instance de la classe, et une méthode publique qui permet de récupérer cette même instance. Sur la figure \ref{Singleton}, on peut voir au bas de la classe, les deux méthodes citées.
 
 
 \begin{figure}[!ht]
@@ -191,7 +191,7 @@ Nous avons donc mis le constructeur de la classe en privé aisni que l'instance 
 		\label{singleton}
 \end{figure}
 
-\paragraph{Commande} Ce patron de conception est de type comportemental. Ce patron va permettre d'encapsuler une action réalisée par l'utilisateur (autrement appellé une requête)  dans un objet pour permettre diverses opérations sur la requête. Cela va permettre de dissocier l'objet qui invoque une opération de l'objet qui possède les connaissances nécessaires pour réaliser l'opération demandée. On peut voir l'invocateur comme l'instrument qui appelle la méthode à exécuter. Il est particulièrement recommander en présence d'une IHM car il permet une certaine flexibilité au niveau du design comme le partage de fonctionnalités et le remplacement dynamique des commandes.
+\paragraph{Commande} Ce patron de conception est de type comportemental. Ce patron va permettre d'encapsuler une action réalisée par l'utilisateur (autrement appellée requête)  dans un objet pour permettre diverses opérations sur la requête. Cela va permettre de dissocier l'objet qui invoque une opération de l'objet qui possède les connaissances nécessaires pour réaliser l'opération demandée. On peut voir l'invocateur comme l'instrument qui appelle la méthode à exécuter. Il est particulièrement recommandé en présence d'une IHM car il permet une certaine flexibilité au niveau du design comme le partage de fonctionnalités et le remplacement dynamique des commandes.
 \paragraph{}
 Concrètement, nous avons appliqué le patron sur notre projet comme suit : \\
 
@@ -216,7 +216,7 @@ Receveur & Buffer \\
 \end{table}
 
 \paragraph{}
-Maintenant que nous avons explicité le rôle de chacun ainsi que les interactions qu'il existe entre eux. Nous vous présentons en figure \ref{command} le diagramme de classe correspondant à notre projet et mettant en œuvre le patron Commande.
+Maintenant que nous avons explicité le rôle de chacun ainsi que les interactions qu'il existe entre eux, nous vous présentons en figure \ref{command} le diagramme de classe correspondant à notre projet et mettant en œuvre le patron Commande.
 
 \begin{figure}[!ht]
 		\center
@@ -251,8 +251,8 @@ Afin d'expliciter un peu plus encore le fonctionnement, nous présentons en figu
 
 \subsection{Interface graphique}
 Nous présentons en figure \ref{ui}, l'interface que nous avons réalisé pour l'utilisateur. 
-D'un point d evue générale, nous avons deux parties distinctes dans cette interface : la partie éditeur avec l'espace pour écrire du texte et la partie interaction avec les boutons. On y retrouve les différentes fonctions qui nous ont été demandé : copier, coller, couper. 
-Il y a également deux autres boutons qui sont désactivé pour l'instant car ils sont en préparation pour la prochaine version avec le concept \textit{undo redo}. Grâce à Scala, nous n'avons pas eu besoin de créer un bouton \textit{select} car ce dernier est automatiquement gérer.
+D'un point de vue générale, nous avons deux parties distinctes dans cette interface : la partie éditeur avec l'espace pour écrire du texte et la partie interaction avec les boutons. On y retrouve les différentes fonctions qui nous ont été demandé : copier, coller, couper. 
+Il y a également deux autres boutons qui sont désactivés pour l'instant car ils sont en préparation pour la prochaine version avec le concept \textit{undo/redo}. Grâce à Scala et à la classe \texttt{TextArea}, nous n'avons pas eu besoin de créer un bouton \textit{select} car la sélection de texte se fait avec la souris.
 \begin{figure}[!ht]
 		\center
 		\includegraphics [width=10cm]{ui.png}
@@ -264,6 +264,8 @@ Il y a également deux autres boutons qui sont désactivé pour l'instant car il
 \newpage
 \section{Conception Détaillé}
 
+Dans ce paragraphe, nous décrivons les technologies employées et les moyens utilisés pour implémenter la modélisation décrite précédement.
+ 
 \subsection{Scala}
 
 Scala est un langage de programmation multi-paradigme pour exprimer les modèles de programmation courants dans une forme concise et élégante.
@@ -278,6 +280,50 @@ Ce langage est prévu pour être compilé en bytecode Java (exécutable sur la J
 		\caption{Scala}
 	\end{figure}
 	
+\newpage
+\subsubsection{Exemple d'implémentation : le pattern Singleton}
+
+\begin{lstlisting}[caption=Exemple de scaladoc, label=java]
+
+/**
+ * Singleton Container
+ */
+object Buffer {
+
+   val singleton = new Buffer
+
+   def getInstance: Buffer = {
+      return singleton;
+   }
+
+}
+
+/**
+ *
+ * Class containing the Buffer
+ * @author AdelineAlex
+ *
+ */
+class Buffer {
+
+	val clipBoard = new Clipboard
+
+	val texte = new StringBuffer
+	
+
+	/**
+	 * Method to copy a text
+	 */
+	def copy(t: String): Unit = {
+		clipBoard.setText(t)
+		println(t+" copied into clipboard")
+	}
+
+	...
+
+}
+
+\end{lstlisting}	
 
 \subsection{Maven}
 Apache Maven est un outil logiciel libre pour la gestion et l'automatisation de production des projets logiciels Java et Java EE en particulier. L'objectif recherché est comparable au système Make sous Unix, que nous étudions dans le cadre du module \textit{Concepts et Outils de Développement} : produire un logiciel à partir de ses sources, en optimisant les tâches réalisées à cette fin et en garantissant le bon ordre de fabrication. Contrairement à Make et aux Autotools, Maven est plus adapté à Java, et surtout bien plus utilisé dans le monde du travail (Make est pour aisi dire déprécié).
@@ -406,14 +452,14 @@ object UserInterface extends SimpleSwingApplication {
 
 
 \subsection{Création d'un repository GitHub et utilisation de GIT}
-Dans le but de permettre le développement collaboratif de notre application, nous avons crée un dépôt GitHub pour l'hébergement du projet. Il repose sur \textit{GIT}, qui est un logiciel de gestion de versions.
+Dans le but de permettre le développement collaboratif de notre application, nous avons crée un dépôt GitHub pour l'hébergement du projet. Il repose sur \textit{GIT}, qui est un logiciel de gestion de versions. L'avantage de ce procédé est de garder une trace des développements, et de savoir qui a fait quoi, et dans une moindre mesure de réprimander le développeur ayant introduit une régression !
 
 Voici le lien pour le projet :
 \begin{center}
-\texttt{https://github.com/allinard/miniEditeurGL}
+\url{https://github.com/allinard/miniEditeurGL}
 \end{center}
 
-Les commandes que nous avons le plus utilisé pour le moment sont les suivantes :
+Les commandes GIT que nous avons le plus utilisé pour le moment sont les suivantes :
 \begin{itemize}
 		\item \texttt{git init} crée un nouveau dépôt.
 		\item \texttt{git clone} clone un dépôt distant.
@@ -427,7 +473,7 @@ Les commandes que nous avons le plus utilisé pour le moment sont les suivantes 
 
 
 
-\subsubsection{Virtualisation du projet}
+\subsection{Virtualisation du projet}
 
 Dans un souci d'efficience maximum, nous avons décidé de travailler sur des machines virtuelles\footnote{En informatique, une machine virtuelle (anglais virtual machine, abr. VM) est une illusion d'un appareil informatique créée par un logiciel d'émulation. Le logiciel d'émulation simule la présence de ressources matérielles et logicielles telles que la mémoire, le processeur, le disque dur, voire le système d'exploitation et les pilotes, permettant d'exécuter des programmes dans les mêmes conditions que celles de la machine simulée}. L'avantage de cette pratique est la portabilité de la VM d'un hôte à l'autre. Ainsi, une fois le projet correctement configuré (avec un bon IDE Eclipse bien configuré, et les bons plug-in par exemple), il suffit de la copier d'un collaborateur au projet à un autre. C'est ainsi un bon moyen de ne pas perdre de temps, et de configurer le projet une seule fois.
 
