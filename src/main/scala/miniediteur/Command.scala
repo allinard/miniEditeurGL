@@ -1,6 +1,7 @@
 package miniediteur
 
 import miniediteur.ui.UserInterface
+import miniediteur.memento._
 
 /**
  *
@@ -10,6 +11,10 @@ import miniediteur.ui.UserInterface
  */
 trait Command {
 
+	var caretaker : Caretaker
+	
+	var originator : Originator
+	
 	var ui : UserInterface
 	
 	var buffer = Buffer.getInstance

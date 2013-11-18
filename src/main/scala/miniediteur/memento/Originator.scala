@@ -29,9 +29,9 @@ class Originator(var state: String) {
 	 * Restoring from a given memento
 	 * @param the given memento
 	 */
-	def restoreFromMemento(m: Memento) {
-		val memento = m;
-		state = memento.getSavedState();
+	def restoreFromMemento(state: String) {
+		//val memento = m;
+		//state = memento.getSavedState();
 		println("Originator: Etat après restauration: " + state);
 	}
 

@@ -1,6 +1,7 @@
 package miniediteur.ui
 
 import swing._
+import miniediteur.memento._
 import event._
 import javax.swing.plaf.basic.BasicArrowButton;
 import miniediteur.command._
@@ -17,13 +18,16 @@ class UserInterface extends SimpleSwingApplication {
 	/**
 	 * All concrete commands
 	 */
-	val commandCopy = new Copy(this)
-	val commandCut = new Cut(this)
-	val commandMove = new Move(this)
-	val commandPaste = new Paste(this)
-	val commandRemove = new Remove(this)
-	val commandSelect = new Select(this)
-	val commandWrite = new Write(this)
+	val caretaker = new Caretaker()
+	val originator = new Originator("")
+	
+	val commandCopy = new Copy(this,caretaker,originator)
+	val commandCut = new Cut(this,caretaker,originator)
+	val commandMove = new Move(this,caretaker,originator)
+	val commandPaste = new Paste(this,caretaker,originator)
+	val commandRemove = new Remove(this,caretaker,originator)
+	val commandSelect = new Select(this,caretaker,originator)
+	val commandWrite = new Write(this,caretaker,originator)
 
 
 	/**
@@ -107,6 +111,7 @@ class UserInterface extends SimpleSwingApplication {
 				commandCut.execute
 
 			case ButtonClicked(`buttonUndo`) =>
+				originator.restoreFromMemento(caretaker.getMemento)
 
 			case ButtonClicked(`buttonRedo`) =>
 
