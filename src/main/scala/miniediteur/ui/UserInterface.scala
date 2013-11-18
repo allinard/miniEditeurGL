@@ -72,10 +72,6 @@ class UserInterface extends SimpleSwingApplication {
 			text = "->"
 		}
 
-		//Not implemented yet !
-		buttonUndo.enabled_=(false)
-		buttonRedo.enabled_=(false)
-
 		//Components of the Frame
 		contents = new FlowPanel {
 			contents += new Label(" Editeur de texte ")
@@ -110,9 +106,9 @@ class UserInterface extends SimpleSwingApplication {
 				textarea.cut
 				commandCut.execute
 
-			//		    case ButtonClicked(`buttonUndo`) =>
-			//			  
-			//			case ButtonClicked(`buttonRedo`) =>
+			case ButtonClicked(`buttonUndo`) =>
+
+			case ButtonClicked(`buttonRedo`) =>
 
 		}
 	}
