@@ -7,6 +7,8 @@ import org.junit.Assert._
 import miniediteur.command.Cut;
 import miniediteur.command.Paste
 import miniediteur.ui.UserInterface
+import miniediteur.memento._
+
 
 class PasteTest extends TestCase {
 	override def setUp() = {
@@ -19,10 +21,13 @@ class PasteTest extends TestCase {
 	
 	//UserInterface stub
 	var ui = new UserInterface
+	val caretaker = new Caretaker()
+	val originator = new Originator("")
+	
 	ui.copiedValue = text
 		
-	var cutCmd = new Cut(ui)
-	var pasteCmd = new Paste(ui)
+	var cutCmd = new Cut(ui, caretaker, originator)
+	var pasteCmd = new Paste(ui, caretaker, originator)
 
 	def test1() = {
 		cutCmd.execute
