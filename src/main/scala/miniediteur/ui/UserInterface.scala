@@ -19,7 +19,7 @@ class UserInterface extends SimpleSwingApplication {
 	 * All concrete commands
 	 */
 	val caretaker = new Caretaker()
-	val originator = new Originator("")
+	var originator = new Originator("")
 	
 	val commandCopy = new Copy(this,caretaker,originator)
 	val commandCut = new Cut(this,caretaker,originator)
@@ -92,7 +92,7 @@ class UserInterface extends SimpleSwingApplication {
 		}
 
 		//Adding listeners on buttons
-		listenTo(buttonCopy, buttonPaste, buttonCut)
+		listenTo(buttonCopy, buttonPaste, buttonCut, buttonUndo, buttonRedo)
 
 		//Implementing actions
 		reactions += {
@@ -112,7 +112,7 @@ class UserInterface extends SimpleSwingApplication {
 
 			case ButtonClicked(`buttonUndo`) =>
 				originator.restoreFromMemento(caretaker.getMemento)
-
+				
 			case ButtonClicked(`buttonRedo`) =>
 
 		}

@@ -18,6 +18,7 @@ class Copy(var ui: UserInterface, var caretaker : Caretaker, var originator : Or
 		buffer.copy(t)
 		
 		originator.set(t)
+		caretaker.addMemento(originator.saveToMemento);
 	}
 
 }

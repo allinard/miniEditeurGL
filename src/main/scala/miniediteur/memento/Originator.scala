@@ -20,9 +20,9 @@ class Originator(var state: String) {
 	/**
 	 * saving the memento
 	 */
-	def saveToMemento(): Any = {
+	def saveToMemento(): String = {
 		println("Originator: sauvegarde dans le memento.");
-		return new Memento(state);
+		return state;
 	}
 
 	/**
