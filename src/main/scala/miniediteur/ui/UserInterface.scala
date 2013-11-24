@@ -51,6 +51,17 @@ class UserInterface extends SimpleSwingApplication {
 	 * Variable containing length of selection
 	 */
 	var lenght : Int = 0
+	
+	
+	/**
+	 * Variable test if undo function
+	 */
+	var undo : Boolean = false
+	
+	/**
+	 * Variable save text in textarea
+	 */
+	var textSave : String = ""
 	/**
 	 * The UI
 	 */
@@ -63,7 +74,7 @@ class UserInterface extends SimpleSwingApplication {
 		object textarea extends TextArea { columns = 50; rows = 10 }
 		
 		//Variable for the cursor
-		val c = textarea.caret
+		val caret = textarea.caret
 			
 		//Variable for the Copy Button
 		val buttonCopy = new Button {
@@ -113,14 +124,17 @@ class UserInterface extends SimpleSwingApplication {
 			case ButtonClicked(`buttonCopy`) =>
 				if (textarea.selected != null){
 					copiedValue = textarea.selected
-					positionEnd= c.position
+					positionEnd= caret.position
 					lenght = textarea.selected.length()
+					textSave = textarea.text
 					textarea.copy
 					commandCopy.execute
 				}
 
 			case ButtonClicked(`buttonPaste`) =>
-				positionEnd= c.position
+				positionEnd= caret.position
+				textSave = textarea.text
+				println (" Pasteeeee : " + textSave)
 				textarea.paste
 				commandPaste.execute
 
@@ -128,8 +142,9 @@ class UserInterface extends SimpleSwingApplication {
 				
 				if (textarea.selected != null){
 					copiedValue = textarea.selected
-					positionEnd= c.position
+					positionEnd= caret.position
 					lenght = textarea.selected.length()
+					textSave = textarea.text
 					textarea.cut
 					commandCut.execute
 				}
@@ -137,21 +152,29 @@ class UserInterface extends SimpleSwingApplication {
 				
 
 			case ButtonClicked(`buttonUndo`) =>
-				if (caretaker.savedStates.size()>1){
+				if (caretaker.savedStates.size()>0){
 					var state = caretaker.getMemento()
 					originator.restoreFromMemento(state)
+					println(" Undoooo before : " + textSave )
 					state.undo
+					textarea.text = textSave
+					println(" Undoooo after : " + textSave )
 				}
+				//else { textarea.text = ""}
 				
 			case ButtonClicked(`buttonRedo`) =>
-				var state = caretaker.getMemento()
-				caretaker.addMemento(state)
-				//test si il faut ecrire dans le textarea
-				if (state.getClass() == classOf[Paste]){
-					textarea.paste 
+				
+				if ( caretaker.savedStates.size > 0){ 
+					var state = caretaker.getMemento()
+					caretaker.addMemento(state)
+					//test si il faut ecrire dans le textarea
+					if (state.getClass() == classOf[Paste]){
+						textSave = textarea.text
+						println (" Redooo : " + textSave)
+						textarea.paste 
+					}
+					state.redo()
 				}
-				state.redo()
-
 		}
 	}
 	

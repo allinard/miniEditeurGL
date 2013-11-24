@@ -15,12 +15,17 @@ class Paste(var ui: UserInterface, var caretaker : Caretaker, var originator : O
 
 	var positionStart = 0
 	var positionEnd = 0
+	var text : String = ""
+	var textSave = ""
+	
 	
 	def execute() = {
-		//ui.pasteValue= buffer.paste();
+		ui.pasteValue= buffer.paste();
+		positionStart = ui.positionEnd - ui.lenght
+		positionEnd = ui.positionEnd
+		textSave = ui.textSave
 		originator.set(ui.commandPaste);
 		caretaker.addMemento(originator.saveToMemento);
-		
 	}
 	
 	def redo() = {
@@ -28,7 +33,9 @@ class Paste(var ui: UserInterface, var caretaker : Caretaker, var originator : O
 	}
 	
 	def undo() = {
-		ui.commandCut
+		ui.textSave = textSave
+		ui.positionEnd = positionEnd
+		ui.lenght = positionEnd - positionStart
 	}
 
 }

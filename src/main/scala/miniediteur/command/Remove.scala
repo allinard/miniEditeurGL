@@ -14,6 +14,8 @@ class Remove(var ui: UserInterface, var caretaker : Caretaker, var originator : 
 
 	var positionStart = 0
 	var positionEnd = 0
+	var text : String = ""
+	var textSave = ""
 	
 	def execute() = {
 		buffer.remove()

@@ -22,7 +22,11 @@ trait Command {
 	var positionStart : Int
 
 	var positionEnd : Int
+	
+	var text : String
 
+	var textSave : String 
+	
 	def execute(): Unit
 	
 	//def cando() : Unit

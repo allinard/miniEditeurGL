@@ -13,8 +13,10 @@ import miniediteur.memento._
  */
 class Select(var ui: UserInterface, var caretaker : Caretaker, var originator : Originator) extends Command {
 
-		var positionStart = 0
+	var positionStart = 0
 	var positionEnd = 0
+	var text : String = ""
+	var textSave = ""
 
 	def execute() = {
 		buffer.select()

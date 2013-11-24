@@ -14,14 +14,20 @@ class Cut(var ui: UserInterface, var caretaker : Caretaker, var originator : Ori
 
 	var positionStart = 0
 	var positionEnd = 0
-	
+	var text = ""
+	var textSave = ""
+		
 	def execute() = {
-		val t = ui.copiedValue
+		val text = ui.copiedValue
 		positionStart = ui.positionEnd - ui.lenght
 		positionEnd = ui.positionEnd
-		buffer.cut(t)
+		textSave = ui.textSave
+		buffer.cut(text)
+		
+		//Save this state in Memento
 		originator.set(ui.commandCut)
-		caretaker.addMemento(originator.saveToMemento);	
+		caretaker.addMemento(originator.saveToMemento)
+		
 	}
 	
 	def redo() = {
@@ -29,8 +35,9 @@ class Cut(var ui: UserInterface, var caretaker : Caretaker, var originator : Ori
 	}
 	
 	def undo() = {
-		
-		ui.commandPaste
+		ui.textSave = textSave
+		ui.positionEnd = positionEnd
+		ui.lenght = positionEnd - positionStart
 	}
 
 }

@@ -14,12 +14,13 @@ class Write(var ui: UserInterface, var caretaker : Caretaker, var originator : O
 
 	var positionStart = 0
 	var positionEnd = 0
-	
+	var text : String = ""
+	var textSave = ""
 	
 	def execute() = {
 		//TODO replace by text from UI
-		val t = ""
-		buffer.write(t)
+		
+		buffer.write(text)
 	}
 	
 	def redo() = {}

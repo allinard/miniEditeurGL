@@ -14,6 +14,8 @@ class Move(var ui: UserInterface, var caretaker : Caretaker, var originator : Or
 
 	var positionStart = 0
 	var positionEnd = 0
+	var text : String = ""
+	var textSave = ""
 	
 	def execute() = {
 		buffer.move()
