@@ -41,6 +41,16 @@ class UserInterface extends SimpleSwingApplication {
 	 */
 	var pasteValue: String = ""
 
+		
+	/**
+	 *  Variable containing the value of ending selection
+	 */	
+	var positionEnd : Int = 0
+	
+	/**
+	 * Variable containing length of selection
+	 */
+	var lenght : Int = 0
 	/**
 	 * The UI
 	 */
@@ -51,7 +61,10 @@ class UserInterface extends SimpleSwingApplication {
 
 		//Object containing the text area (defined size between brackets)
 		object textarea extends TextArea { columns = 50; rows = 10 }
-
+		
+		//Variable for the cursor
+		val c = textarea.caret
+			
 		//Variable for the Copy Button
 		val buttonCopy = new Button {
 			text = "Copy"
@@ -100,11 +113,14 @@ class UserInterface extends SimpleSwingApplication {
 			case ButtonClicked(`buttonCopy`) =>
 				if (textarea.selected != null){
 					copiedValue = textarea.selected
+					positionEnd= c.position
+					lenght = textarea.selected.length()
 					textarea.copy
 					commandCopy.execute
 				}
 
 			case ButtonClicked(`buttonPaste`) =>
+				positionEnd= c.position
 				textarea.paste
 				commandPaste.execute
 
@@ -112,18 +128,24 @@ class UserInterface extends SimpleSwingApplication {
 				
 				if (textarea.selected != null){
 					copiedValue = textarea.selected
+					positionEnd= c.position
+					lenght = textarea.selected.length()
 					textarea.cut
 					commandCut.execute
 				}
 				
 				
 
-			//case ButtonClicked(`buttonUndo`) =>
-				//originator.restoreFromMemento(caretaker.getMemento)
+			case ButtonClicked(`buttonUndo`) =>
+				if (caretaker.savedStates.size()>1){
+					var state = caretaker.getMemento()
+					originator.restoreFromMemento(state)
+					state.undo
+				}
 				
 			case ButtonClicked(`buttonRedo`) =>
 				var state = caretaker.getMemento()
-				
+				caretaker.addMemento(state)
 				//test si il faut ecrire dans le textarea
 				if (state.getClass() == classOf[Paste]){
 					textarea.paste 

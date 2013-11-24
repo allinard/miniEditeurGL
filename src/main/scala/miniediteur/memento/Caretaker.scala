@@ -3,6 +3,7 @@ package miniediteur.memento
 import scala.collection.immutable.List
 import scala.collection.mutable.ArrayBuffer
 import miniediteur.Command
+import java.util.Stack
 
 /**
  *
@@ -14,14 +15,14 @@ class Caretaker {
 	/**
 	 * The variable containing the differents states of the editor
 	 */
-	var savedStates = ArrayBuffer[Command]()
+	var savedStates = new Stack[Command]()
 
 	/**
 	 * Adding a state to the memento
 	 * @param the text of the editor in the current state
 	 */
 	def addMemento(m: Command) {
-		savedStates += m
+		savedStates.push(m)
 	}
 
 	/**
@@ -29,7 +30,7 @@ class Caretaker {
 	 */
 	def getMemento(): Command =
 		{
-			return savedStates.last
+			return savedStates.pop()
 		}
 
 }

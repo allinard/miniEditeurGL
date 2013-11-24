@@ -13,6 +13,9 @@ import miniediteur.memento._
  */
 class Select(var ui: UserInterface, var caretaker : Caretaker, var originator : Originator) extends Command {
 
+		var positionStart = 0
+	var positionEnd = 0
+
 	def execute() = {
 		buffer.select()
 	}

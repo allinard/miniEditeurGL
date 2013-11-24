@@ -18,6 +18,10 @@ trait Command {
 	var ui : UserInterface
 	
 	var buffer = Buffer.getInstance
+	
+	var positionStart : Int
+
+	var positionEnd : Int
 
 	def execute(): Unit
 	

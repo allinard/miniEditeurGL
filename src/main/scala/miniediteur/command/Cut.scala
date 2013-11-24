@@ -12,15 +12,16 @@ import miniediteur.memento._
  */
 class Cut(var ui: UserInterface, var caretaker : Caretaker, var originator : Originator) extends Command {
 
-	var position : Int = 0
+	var positionStart = 0
+	var positionEnd = 0
 	
 	def execute() = {
 		val t = ui.copiedValue
-
+		positionStart = ui.positionEnd - ui.lenght
+		positionEnd = ui.positionEnd
 		buffer.cut(t)
 		originator.set(ui.commandCut)
-		caretaker.addMemento(originator.saveToMemento);
-		
+		caretaker.addMemento(originator.saveToMemento);	
 	}
 	
 	def redo() = {
@@ -28,6 +29,7 @@ class Cut(var ui: UserInterface, var caretaker : Caretaker, var originator : Ori
 	}
 	
 	def undo() = {
+		
 		ui.commandPaste
 	}
 

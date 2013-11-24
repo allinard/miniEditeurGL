@@ -33,16 +33,10 @@ class Originator(var state: Command) {
 	 * Restoring from a given memento
 	 * @param the given memento
 	 */
-	/*def restoreFromMemento(m: Memento) {
-		
-			
+	def restoreFromMemento(c: Command) {
+			val m = new Memento(c)
 			state = m.getSavedState();
-			println("Originator: Etat après restauration: " + state); }
+			println("Originator: Etat après restauration: " + state);
+	}
 			
-		}
-		
-	}*/
-
-	
-
 }
