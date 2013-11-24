@@ -15,5 +15,9 @@ class Remove(var ui: UserInterface, var caretaker : Caretaker, var originator : 
 	def execute() = {
 		buffer.remove()
 	}
+	
+	def redo() = {}
+	
+	def undo() = {}
 
 }

@@ -15,5 +15,9 @@ class Move(var ui: UserInterface, var caretaker : Caretaker, var originator : Or
 	def execute() = {
 		buffer.move()
 	}
+	
+	def redo() = {}
+	
+	def undo() = {}
 
 }

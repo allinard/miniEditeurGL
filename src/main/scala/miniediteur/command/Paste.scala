@@ -14,9 +14,21 @@ import miniediteur.Buffer
 class Paste(var ui: UserInterface, var caretaker : Caretaker, var originator : Originator) extends Command {
 
 	var position : Int = 0
+	
 		
 	def execute() = {
-		ui.pasteValue = buffer.paste()
+		//ui.pasteValue= buffer.paste();
+		originator.set(ui.commandPaste);
+		caretaker.addMemento(originator.saveToMemento);
+		
+	}
+	
+	def redo() = {
+		execute()
+	}
+	
+	def undo() = {
+		ui.commandCut
 	}
 
 }

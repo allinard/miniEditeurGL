@@ -3,8 +3,9 @@ package miniediteur.ui
 import swing._
 import miniediteur.memento._
 import event._
-import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicArrowButton
 import miniediteur.command._
+import miniediteur.Command
 
 /**
  *
@@ -19,7 +20,7 @@ class UserInterface extends SimpleSwingApplication {
 	 * All concrete commands
 	 */
 	val caretaker = new Caretaker()
-	var originator = new Originator("")
+	var originator = new Originator(null)
 	
 	val commandCopy = new Copy(this,caretaker,originator)
 	val commandCut = new Cut(this,caretaker,originator)
@@ -97,26 +98,42 @@ class UserInterface extends SimpleSwingApplication {
 		//Implementing actions
 		reactions += {
 			case ButtonClicked(`buttonCopy`) =>
-				copiedValue = textarea.selected
-				textarea.copy
-				commandCopy.execute
+				if (textarea.selected != null){
+					copiedValue = textarea.selected
+					textarea.copy
+					commandCopy.execute
+				}
 
 			case ButtonClicked(`buttonPaste`) =>
 				textarea.paste
 				commandPaste.execute
 
 			case ButtonClicked(`buttonCut`) =>
-				copiedValue = textarea.selected
-				textarea.cut
-				commandCut.execute
+				
+				if (textarea.selected != null){
+					copiedValue = textarea.selected
+					textarea.cut
+					commandCut.execute
+				}
+				
+				
 
-			case ButtonClicked(`buttonUndo`) =>
-				originator.restoreFromMemento(caretaker.getMemento)
+			//case ButtonClicked(`buttonUndo`) =>
+				//originator.restoreFromMemento(caretaker.getMemento)
 				
 			case ButtonClicked(`buttonRedo`) =>
+				var state = caretaker.getMemento()
+				
+				//test si il faut ecrire dans le textarea
+				if (state.getClass() == classOf[Paste]){
+					textarea.paste 
+				}
+				state.redo()
 
 		}
 	}
+	
+	
 
 
 }

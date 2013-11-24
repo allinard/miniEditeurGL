@@ -1,18 +1,22 @@
 package miniediteur.memento
 
 import scala.reflect.api.TypeTags
+import miniediteur.memento.Memento
+import miniediteur.Command
+
 
 /**
  * Class containing the memento in order to save the different states of the editor
  * @author AdelineAlex
  */
-class Originator(var state: String) {
+class Originator(var state: Command) {
 
+	
 	/**
 	 * setting a state to the memento
 	 * @param the state
 	 */
-	def set(state: String) {
+	def set(state: Command) {
 		println("Originator: etat affecte a: " + state);
 		this.state = state;
 	}
@@ -20,8 +24,8 @@ class Originator(var state: String) {
 	/**
 	 * saving the memento
 	 */
-	def saveToMemento(): String = {
-		println("Originator: sauvegarde dans le memento.");
+	def saveToMemento(): Command = {
+		println("Originator: sauvegarde dans le memento de --> " + state);
 		return state;
 	}
 
@@ -29,23 +33,16 @@ class Originator(var state: String) {
 	 * Restoring from a given memento
 	 * @param the given memento
 	 */
-	def restoreFromMemento(state: String) {
-		//val memento = m;
-		//state = memento.getSavedState();
-		println("Originator: Etat après restauration: " + state);
-	}
-
-	/**
-	 * The memento
-	 * @author root
-	 */
-	class Memento(var state: String) {
-		/**
-		 * get the state
-		 */
-		def getSavedState(): String = {
-			return state
+	/*def restoreFromMemento(m: Memento) {
+		
+			
+			state = m.getSavedState();
+			println("Originator: Etat après restauration: " + state); }
+			
 		}
-	}
+		
+	}*/
+
+	
 
 }

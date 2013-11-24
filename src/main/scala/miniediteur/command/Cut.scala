@@ -18,9 +18,17 @@ class Cut(var ui: UserInterface, var caretaker : Caretaker, var originator : Ori
 		val t = ui.copiedValue
 
 		buffer.cut(t)
-		
-		originator.set(t)
+		originator.set(ui.commandCut)
 		caretaker.addMemento(originator.saveToMemento);
+		
+	}
+	
+	def redo() = {
+		execute()
+	}
+	
+	def undo() = {
+		ui.commandPaste
 	}
 
 }

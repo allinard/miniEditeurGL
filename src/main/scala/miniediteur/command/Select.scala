@@ -16,5 +16,9 @@ class Select(var ui: UserInterface, var caretaker : Caretaker, var originator : 
 	def execute() = {
 		buffer.select()
 	}
+	
+	def redo() = {}
+	
+	def undo() = {}
 
 }

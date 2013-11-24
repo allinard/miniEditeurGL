@@ -22,7 +22,7 @@ class PasteTest extends TestCase {
 	//UserInterface stub
 	var ui = new UserInterface
 	val caretaker = new Caretaker()
-	val originator = new Originator("")
+	val originator = new Originator(null)
 	
 	ui.copiedValue = text
 		

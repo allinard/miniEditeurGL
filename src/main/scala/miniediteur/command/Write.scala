@@ -17,5 +17,9 @@ class Write(var ui: UserInterface, var caretaker : Caretaker, var originator : O
 		val t = ""
 		buffer.write(t)
 	}
+	
+	def redo() = {}
+	
+	def undo() = {}
 
 }
