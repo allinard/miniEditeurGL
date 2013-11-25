@@ -31,12 +31,6 @@ class Buffer {
 		println(t+" cut into clipboard")
 	}
 
-	/**
-	 * Method to move a text
-	 */
-	def move(): Unit = {
-		//TODO
-	}
 
 	/**
 	 * Method to paste a text
@@ -46,26 +40,7 @@ class Buffer {
 		return clipBoard.getText
 	}
 
-	/**
-	 * Method to remove a text
-	 */
-	def remove(): Unit = {
-		//TODO on efface donc mettre dans le buffer quand meme pour etape 2
-	}
 
-	/**
-	 * Method to select a text
-	 */
-	def select(): Unit = {
-		//TODO
-	}
-
-	/**
-	 * Method to write a text
-	 */
-	def write(lastChar: String): Unit = {
-		texte.append(lastChar)
-	}
 
 }
 

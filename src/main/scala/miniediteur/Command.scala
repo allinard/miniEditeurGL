@@ -29,8 +29,6 @@ trait Command {
 	
 	def execute(): Unit
 	
-	//def cando() : Unit
-	
 	def redo() : Unit
 	
 	def undo() : Unit

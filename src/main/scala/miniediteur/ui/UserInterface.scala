@@ -168,24 +168,23 @@ class UserInterface extends SimpleSwingApplication {
 				}
 				
 			case ButtonClicked(`buttonRedo`) =>
-				
+				//test size of memento stack
 				if ( caretaker.savedStates.size > 0){ 
 					var state = caretaker.getMemento()
 					caretaker.addMemento(state)
 					textSave = textarea.text
-					//pas possible de faire un switch case
+					//impossible to do a switch case with getClass
+					//Create new command eq state 
 					if (state.getClass()== classOf[Cut]){
 							val newState = new Cut(state.ui,state.caretaker, state.originator)
 							newState.text = state.text
 							newState.redo()
 					}
-					 
 					else if (state.getClass() == classOf[Copy]){
 							val newState = new Copy(state.ui,state.caretaker, state.originator)
 							newState.text = state.text
 							newState.redo()
-					} 
-							
+					} 		
 					else if ( state.getClass() == classOf[Paste]){
 							val newState = new Paste(state.ui,state.caretaker, state.originator)
 							newState.text = state.text
