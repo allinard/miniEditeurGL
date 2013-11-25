@@ -17,6 +17,9 @@ class Copy(var ui: UserInterface, var caretaker : Caretaker, var originator : Or
 	var text = ""
 	var textSave = ""
 	
+	/**
+	 * Main method
+	 */
 	def execute() = {
 		val text = ui.copiedValue
 		positionStart = ui.positionEnd - ui.lenght
@@ -27,11 +30,17 @@ class Copy(var ui: UserInterface, var caretaker : Caretaker, var originator : Or
 		caretaker.addMemento(originator.saveToMemento);
 	}
 	
+	/**
+	 * Method showing Redo
+	 */
 	def redo() = {
 		
 		execute()
 	}
 	
+	/**
+	 * Method doing undo
+	 */
 	def undo() = {
 		ui.textSave = textSave
 		ui.positionEnd = positionEnd

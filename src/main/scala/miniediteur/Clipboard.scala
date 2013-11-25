@@ -11,7 +11,6 @@ class Clipboard {
 	/**
 	 * Variable containing copied or cut text from buffer
 	 */
-	//TODO VERSION 2 : REMPLACER par LIST or MAP pour pouvoir sauvegarder les textes copies
 	var text: String = ""
 
 	/**
