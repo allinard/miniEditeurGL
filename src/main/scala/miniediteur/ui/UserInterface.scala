@@ -24,11 +24,7 @@ class UserInterface extends SimpleSwingApplication {
 	
 	val commandCopy = new Copy(this,caretaker,originator)
 	val commandCut = new Cut(this,caretaker,originator)
-	val commandMove = new Move(this,caretaker,originator)
 	val commandPaste = new Paste(this,caretaker,originator)
-	val commandRemove = new Remove(this,caretaker,originator)
-	val commandSelect = new Select(this,caretaker,originator)
-	val commandWrite = new Write(this,caretaker,originator)
 
 
 	/**
