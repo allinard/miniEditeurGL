@@ -16,12 +16,20 @@ import miniediteur.Command
  */
 class UserInterface extends SimpleSwingApplication {
 
+
+	/**
+	 * The caretaker (cf. Memento)
+	 */
+	val caretaker = new Caretaker()
+	
+	/**
+	 * The originator (cf. Memento)
+	 */
+	var originator = new Originator(null)
+	
 	/**
 	 * All concrete commands
 	 */
-	val caretaker = new Caretaker()
-	var originator = new Originator(null)
-	
 	val commandCopy = new Copy(this,caretaker,originator)
 	val commandCut = new Cut(this,caretaker,originator)
 	val commandPaste = new Paste(this,caretaker,originator)
