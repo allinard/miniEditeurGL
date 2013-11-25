@@ -1,7 +1,5 @@
 package miniediteur.memento
 
-import scala.reflect.api.TypeTags
-import miniediteur.memento.Memento
 import miniediteur.Command
 
 
