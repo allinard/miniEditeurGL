@@ -18,12 +18,12 @@ class Copy(var ui: UserInterface, var caretaker : Caretaker, var originator : Or
 	var textSave = ""
 	
 	def execute() = {
-		val t = ui.copiedValue
+		val text = ui.copiedValue
 		positionStart = ui.positionEnd - ui.lenght
 		positionEnd = ui.positionEnd
 		textSave = ui.textSave
-		buffer.copy(t)
-		originator.set(ui.commandCopy)
+		buffer.copy(text)
+		originator.set(this)
 		caretaker.addMemento(originator.saveToMemento);
 	}
 	

@@ -24,7 +24,7 @@ class Paste(var ui: UserInterface, var caretaker : Caretaker, var originator : O
 		positionStart = ui.positionEnd - ui.lenght
 		positionEnd = ui.positionEnd
 		textSave = ui.textSave
-		originator.set(ui.commandPaste);
+		originator.set(this);
 		caretaker.addMemento(originator.saveToMemento);
 	}
 	
@@ -32,6 +32,7 @@ class Paste(var ui: UserInterface, var caretaker : Caretaker, var originator : O
 		execute()
 	}
 	
+	// give old version for ui var 
 	def undo() = {
 		ui.textSave = textSave
 		ui.positionEnd = positionEnd

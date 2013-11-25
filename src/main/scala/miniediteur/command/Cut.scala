@@ -25,7 +25,7 @@ class Cut(var ui: UserInterface, var caretaker : Caretaker, var originator : Ori
 		buffer.cut(text)
 		
 		//Save this state in Memento
-		originator.set(ui.commandCut)
+		originator.set(this)
 		caretaker.addMemento(originator.saveToMemento)
 		
 	}

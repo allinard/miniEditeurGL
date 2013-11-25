@@ -22,14 +22,10 @@ class UserInterface extends SimpleSwingApplication {
 	val caretaker = new Caretaker()
 	var originator = new Originator(null)
 	
-	val commandCopy = new Copy(this,caretaker,originator)
-	val commandCut = new Cut(this,caretaker,originator)
-	val commandMove = new Move(this,caretaker,originator)
-	val commandPaste = new Paste(this,caretaker,originator)
-	val commandRemove = new Remove(this,caretaker,originator)
-	val commandSelect = new Select(this,caretaker,originator)
-	val commandWrite = new Write(this,caretaker,originator)
-
+	/**
+	 * Variable containing user interface
+	 */
+	val ui = this
 
 	/**
 	 * Variable containing the copied value (or pasted) in the text editor
@@ -62,6 +58,10 @@ class UserInterface extends SimpleSwingApplication {
 	 * Variable save text in textarea
 	 */
 	var textSave : String = ""
+		
+		
+	//val newState : Command 
+		
 	/**
 	 * The UI
 	 */
@@ -122,6 +122,7 @@ class UserInterface extends SimpleSwingApplication {
 		//Implementing actions
 		reactions += {
 			case ButtonClicked(`buttonCopy`) =>
+				val commandCopy = new Copy(ui,caretaker,originator)
 				if (textarea.selected != null){
 					copiedValue = textarea.selected
 					positionEnd= caret.position
@@ -132,6 +133,7 @@ class UserInterface extends SimpleSwingApplication {
 				}
 
 			case ButtonClicked(`buttonPaste`) =>
+				val commandPaste = new Paste(ui,caretaker,originator)
 				positionEnd= caret.position
 				textSave = textarea.text
 				println (" Pasteeeee : " + textSave)
@@ -139,7 +141,7 @@ class UserInterface extends SimpleSwingApplication {
 				commandPaste.execute
 
 			case ButtonClicked(`buttonCut`) =>
-				
+				val commandCut = new Cut(ui,caretaker,originator)
 				if (textarea.selected != null){
 					copiedValue = textarea.selected
 					positionEnd= caret.position
@@ -152,28 +154,45 @@ class UserInterface extends SimpleSwingApplication {
 				
 
 			case ButtonClicked(`buttonUndo`) =>
+				//println(" Undoooo before : " + textSave );
 				if (caretaker.savedStates.size()>0){
 					var state = caretaker.getMemento()
-					originator.restoreFromMemento(state)
-					println(" Undoooo before : " + textSave )
+					originator.restoreFromMemento(state)	
 					state.undo
 					textarea.text = textSave
-					println(" Undoooo after : " + textSave )
+				//	println(" Undoooo after : " + textSave )
 				}
-				//else { textarea.text = ""}
+				else 
+				{ 
+					textarea.text = ""
+				}
 				
 			case ButtonClicked(`buttonRedo`) =>
 				
 				if ( caretaker.savedStates.size > 0){ 
 					var state = caretaker.getMemento()
 					caretaker.addMemento(state)
-					//test si il faut ecrire dans le textarea
-					if (state.getClass() == classOf[Paste]){
-						textSave = textarea.text
-						println (" Redooo : " + textSave)
-						textarea.paste 
+					textSave = textarea.text
+					//pas possible de faire un switch case
+					if (state.getClass()== classOf[Cut]){
+							val newState = new Cut(state.ui,state.caretaker, state.originator)
+							newState.text = state.text
+							newState.redo()
 					}
-					state.redo()
+					 
+					else if (state.getClass() == classOf[Copy]){
+							val newState = new Copy(state.ui,state.caretaker, state.originator)
+							newState.text = state.text
+							newState.redo()
+					} 
+							
+					else if ( state.getClass() == classOf[Paste]){
+							val newState = new Paste(state.ui,state.caretaker, state.originator)
+							newState.text = state.text
+							textarea.paste
+							newState.redo()
+					}
+					
 				}
 		}
 	}
