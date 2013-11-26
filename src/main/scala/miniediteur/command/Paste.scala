@@ -17,7 +17,7 @@ class Paste(var ui: UserInterface, var caretaker : Caretaker, var originator : O
 	
 		
 	def execute() = {
-		//ui.pasteValue= buffer.paste();
+		ui.pasteValue= buffer.paste();
 		originator.set(ui.commandPaste);
 		caretaker.addMemento(originator.saveToMemento);
 		

@@ -126,13 +126,13 @@ class UserInterface extends SimpleSwingApplication {
 				//originator.restoreFromMemento(caretaker.getMemento)
 				
 			case ButtonClicked(`buttonRedo`) =>
-				var state = caretaker.getMemento()
+				var mem = caretaker.getMemento()
 				
 				//test si il faut ecrire dans le textarea
-				if (state.getClass() == classOf[Paste]){
+				if (mem.state.getClass() == classOf[Paste]){
 					textarea.paste 
 				}
-				state.redo()
+				mem.state.redo()
 
 		}
 	}

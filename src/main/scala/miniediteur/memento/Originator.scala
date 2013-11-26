@@ -22,9 +22,9 @@ class Originator(var state: Command) {
 	/**
 	 * saving the memento
 	 */
-	def saveToMemento(): Command = {
+	def saveToMemento(): Memento = {
 		println("Originator: sauvegarde dans le memento de --> " + state);
-		return state;
+		return new Memento(state);
 	}
 
 	/**
