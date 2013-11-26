@@ -156,9 +156,9 @@ class UserInterface extends SimpleSwingApplication {
 			case ButtonClicked(`buttonUndo`) =>
 				//println(" Undoooo before : " + textSave );
 				if (caretaker.savedStates.size()>0){
-					var state = caretaker.getMemento()
-					originator.restoreFromMemento(state)	
-					state.undo
+					var mem = caretaker.getMemento()
+					originator.restoreFromMemento(mem)	
+					mem.stateMem.undo
 					textarea.text = textSave
 				//	println(" Undoooo after : " + textSave )
 				}
@@ -170,24 +170,24 @@ class UserInterface extends SimpleSwingApplication {
 			case ButtonClicked(`buttonRedo`) =>
 				//test size of memento stack
 				if ( caretaker.savedStates.size > 0){ 
-					var state = caretaker.getMemento()
-					caretaker.addMemento(state)
+					var mem = caretaker.getMemento()
+					caretaker.addMemento(mem)
 					textSave = textarea.text
 					//impossible to do a switch case with getClass
 					//Create new command eq state 
-					if (state.getClass()== classOf[Cut]){
-							val newState = new Cut(state.ui,state.caretaker, state.originator)
-							newState.text = state.text
+					if (mem.stateMem.getClass()== classOf[Cut]){
+							val newState = new Cut(mem.stateMem.ui,mem.stateMem.caretaker, mem.stateMem.originator)
+							newState.text = mem.stateMem.text
 							newState.redo()
 					}
-					else if (state.getClass() == classOf[Copy]){
-							val newState = new Copy(state.ui,state.caretaker, state.originator)
-							newState.text = state.text
+					else if (mem.stateMem.getClass() == classOf[Copy]){
+							val newState = new Copy(mem.stateMem.ui,mem.stateMem.caretaker, mem.stateMem.originator)
+							newState.text = mem.stateMem.text
 							newState.redo()
 					} 		
-					else if ( state.getClass() == classOf[Paste]){
-							val newState = new Paste(state.ui,state.caretaker, state.originator)
-							newState.text = state.text
+					else if (mem.stateMem.getClass() == classOf[Paste]){
+							val newState = new Paste(mem.stateMem.ui,mem.stateMem.caretaker, mem.stateMem.originator)
+							newState.text = mem.stateMem.text
 							textarea.paste
 							newState.redo()
 					}

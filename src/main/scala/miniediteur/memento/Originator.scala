@@ -24,19 +24,24 @@ class Originator(var state: Command) {
 	/**
 	 * saving the memento
 	 */
-	def saveToMemento(): Command = {
+	def saveToMemento(): Memento = {
 		println("Originator: sauvegarde dans le memento de --> " + state);
-		return state;
+		return new Memento(state);
 	}
 
 	/**
 	 * Restoring from a given memento
 	 * @param the given memento
 	 */
-	def restoreFromMemento(c: Command) {
-			val m = new Memento(c)
-			state = m.getSavedState();
-			println("Originator: Etat après restauration: " + state);
+	def restoreFromMemento(m: Object) {
+			if (m.getClass()== classOf[Memento]){
+				val mem : Memento = m.asInstanceOf[Memento]
+				state = mem.getSavedState();
+				println("Originator: Etat après restauration: " + state);
+			}
+			
+			
+			
 	}
 			
 }

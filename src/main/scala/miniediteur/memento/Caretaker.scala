@@ -15,20 +15,20 @@ class Caretaker {
 	/**
 	 * The variable containing the differents states of the editor
 	 */
-	var savedStates = new Stack[Command]()
+	var savedStates = new Stack[Memento]()
 
 	/**
 	 * Adding a state to the memento
 	 * @param the text of the editor in the current state
 	 */
-	def addMemento(m: Command) {
+	def addMemento(m: Memento) {
 		savedStates.push(m)
 	}
 
 	/**
 	 * getting the last recorded state of the memento
 	 */
-	def getMemento(): Command =
+	def getMemento(): Memento =
 		{
 			return savedStates.pop()
 		}
